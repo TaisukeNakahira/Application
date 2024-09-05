@@ -25,7 +25,7 @@
 - 場所編集画面
 
 ### 画面遷移
-[画面遷移](https://github.com/TaisukeNakahira/Application/blob/main/doc/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.drawio)
+[画面遷移](https://github.com/TaisukeNakahira/Application/blob/main/doc/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.png)
 
 ## 技術選定
 - UIライブラリ：Material-UI
@@ -34,3 +34,6 @@
 - バンドラ―：Vite
 - ホスティングプロバイダ：Github Pages
 - DB：RxDB
+
+ER図
+@:(https://github.com/TaisukeNakahira/Application/blob/main/doc/ER.puml)
