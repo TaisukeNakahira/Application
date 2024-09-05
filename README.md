@@ -32,8 +32,9 @@
 - ルーティング：React Rouer
 - API通信：Axios
 - バンドラ―：Vite
-- ホスティングプロバイダ：Github Pages
-- DB：RxDB
+- ?ホスティングプロバイダ：Github Pages
+- DB：mongoDB
+- サーバーサイドフレームワーク：express.js
 
 ER図
 @:(https://github.com/TaisukeNakahira/Application/blob/main/doc/ER.puml)
