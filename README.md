@@ -30,11 +30,12 @@
 ## 技術選定
 - UIライブラリ：Material-UI
 - ルーティング：React Rouer
-- API通信：Axios
 - バンドラ―：Vite
 - ?ホスティングプロバイダ：Vercel
-- DB：mongoDB(ライブラリ：mongoose)
-- サーバーサイドフレームワーク：express.js
+- ?DB：Firebase(サーバーサイドの実装が必要なくなる)
+- ?DB：mongoDB(ライブラリ：mongoose)
+- ?API通信：Axios
+- ?サーバーサイドフレームワーク：express.js
 
 ER図
 @:(https://github.com/TaisukeNakahira/Application/blob/main/doc/ER.puml)
