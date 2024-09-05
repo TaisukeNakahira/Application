@@ -32,8 +32,8 @@
 - ルーティング：React Rouer
 - API通信：Axios
 - バンドラ―：Vite
-- ?ホスティングプロバイダ：Github Pages
-- DB：mongoDB
+- ?ホスティングプロバイダ：Vercel
+- DB：mongoDB(ライブラリ：mongoose)
 - サーバーサイドフレームワーク：express.js
 
 ER図
