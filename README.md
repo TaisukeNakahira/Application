@@ -34,3 +34,6 @@
 - バンドラ―：Vite
 - ホスティングプロバイダ：Github Pages
 - DB：RxDB
+
+ER図
+@:(https://github.com/TaisukeNakahira/Application/blob/main/doc/ER.puml)
