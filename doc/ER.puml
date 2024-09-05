@@ -1,0 +1,26 @@
+@startuml
+entity "ユーザー" as User {
+  *id : int <<PK>>
+  ---
+  名称 : string
+}
+
+entity "場所" as Place {
+  *id : int <<PK>>
+  ---
+  *ユーザーid : int <<FK>>
+  名称 : string
+  説明 : string
+}
+
+entity "画像文章セット" as ImageTextSet {
+  *id : int <<PK>>
+  ---
+  *場所id : int <<FK>>
+  画像データ : blob
+  説明 : string
+}
+
+User ||--o{ Place : owns
+Place ||--o{ ImageTextSet : contains
+@enduml
