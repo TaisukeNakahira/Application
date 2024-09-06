@@ -3,24 +3,25 @@ entity "ユーザー" as User {
   *id : int <<PK>>
   ---
   名称 : string
+  email : string
 }
 
-entity "場所" as Place {
+entity "場所" as Location {
   *id : int <<PK>>
   ---
   *ユーザーid : int <<FK>>
   名称 : string
-  説明 : string
 }
 
-entity "画像文章セット" as ImageTextSet {
+entity "場所詳細" as LocationDetail {
   *id : int <<PK>>
   ---
   *場所id : int <<FK>>
-  画像データ : blob
+  タイトル : string
+  画像パス : string
   説明 : string
 }
 
-User ||--o{ Place : owns
-Place ||--o{ ImageTextSet : contains
+User ||--o{ Location : owns
+Location ||--o{ LocationDetail : contains
 @enduml
