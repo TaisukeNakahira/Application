@@ -28,14 +28,13 @@
 [画面遷移](https://github.com/TaisukeNakahira/Application/blob/main/doc/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB.png)
 
 ## 技術選定
+- プログラミング言語：TypeScript
+- フロントエンドライブラリ：React
 - UIライブラリ：Material-UI
 - ルーティング：React Rouer
 - バンドラ―：Vite
-- ?ホスティングプロバイダ：Vercel
-- ?DB：Firebase(サーバーサイドの実装が必要なくなる)
-- ?DB：mongoDB(ライブラリ：mongoose)
-- ?API通信：Axios
-- ?サーバーサイドフレームワーク：express.js
+- ホスティングプロバイダ：Vercel
+- DB：Firebase
 
 ER図
 @:(https://github.com/TaisukeNakahira/Application/blob/main/doc/ER.puml)
