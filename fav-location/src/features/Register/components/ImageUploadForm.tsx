@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@mui/material';
-import { useRegisterDataContext } from '../hooks/useRegisterContext';
-import { RegisterData } from './RegisterDataProvider';
+import useEdittingLocationData from '../hooks/useEdittingLocationData';
 
 type ImageUploadProps = {
-  value: number;
+  detailId: number;
 }
 
 const ImageUpload = (props: ImageUploadProps) => {
-  const { registerDataContext, setRegisterDataContext } = useRegisterDataContext();
-  const image = registerDataContext.datas[props.value].image;
-  const description = registerDataContext.datas[props.value].description;
+  const { edittingLocationData, updateDetail } = useEdittingLocationData();
+  const thisDetail = edittingLocationData.details.find(detail => detail.id === props.detailId);
+  const image = thisDetail?.image;
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  // プレビュー画像の表示
   useEffect(() => {
     if (image) {
       const reader = new FileReader();
@@ -27,12 +27,9 @@ const ImageUpload = (props: ImageUploadProps) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      // (event.target.files[0]
-      setRegisterDataContext((prev: RegisterData) => {
-        return { 
-          ...prev, 
-          prev[props.value]: null
-        }
+      updateDetail({
+        ...thisDetail!,
+        image: event.target.files[0]
       });
     }
   };
