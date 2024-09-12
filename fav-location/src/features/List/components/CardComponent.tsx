@@ -1,5 +1,4 @@
-import { Card, CardHeader, CardMedia, CardContent, Typography } from '@mui/material';
-import React from 'react';
+import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import styled from "@emotion/styled";
 
 const StyledCard = styled(Card)`
@@ -17,6 +16,7 @@ type CardComponentProps = {
   title: string;
 }
 
+// Todo: Storageに画像を保存、Databaseに画像のパスを保存する
 const CardComponent = (props: CardComponentProps) => {
   return (
     <>
@@ -29,3 +29,5 @@ const CardComponent = (props: CardComponentProps) => {
     </>
   )
 }
+
+export default CardComponent;

@@ -2,22 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 import { db } from "../../../app/firebaseSettings";
 import { doc, getDoc } from "firebase/firestore";
 
-export type Location = {
+export type LocationType = {
   id: number;
   name: string;
-  details: LocationDetail[];
+  details: LocationDetailType[];
 };
 
-export type LocationDetail = {
+export type LocationDetailType = {
   id: number;
   locationId: number;
   title: string;
-  image: File;
+  imagePath: string;
   description: string;
 };
 
-const useEdittingLocationData = () => {
-  const [edittingLocationData, setEdittingLocationData] = useState<Location>({
+const useLocationData = () => {
+  const [locationData, setLocationData] = useState<LocationType>({
     id: Date.now(),
     name: "",
     details: []
@@ -25,15 +25,15 @@ const useEdittingLocationData = () => {
 
   // 場所名の編集
   const updateLocation = useCallback((name: string) => {
-    setEdittingLocationData(prevState => ({
+    setLocationData(prevState => ({
       ...prevState,
       name: name
     }));
   }, []);
 
   // 場所詳細データの編集
-  const updateDetail = useCallback((updatedDetail: LocationDetail) => {
-    setEdittingLocationData(prevState => ({
+  const updateDetail = useCallback((updatedDetail: LocationDetailType) => {
+    setLocationData(prevState => ({
       ...prevState,
       details: prevState.details.map(detail =>
         detail.id === updatedDetail.id ? { ...detail, ...updatedDetail } : detail
@@ -42,10 +42,10 @@ const useEdittingLocationData = () => {
   }, []);
 
   // 場所詳細データの追加
-  const addDetail = useCallback((newDetail: LocationDetail) => {
+  const addDetail = useCallback((newDetail: LocationDetailType) => {
     newDetail.id = Date.now();
 
-    setEdittingLocationData(prevState => ({
+    setLocationData(prevState => ({
       ...prevState,
       details: [...prevState.details, newDetail]
     }));
@@ -53,7 +53,7 @@ const useEdittingLocationData = () => {
 
   // 場所詳細データの削除
   const removeDetail = useCallback((detailId: number) => {
-    setEdittingLocationData(prevState => ({
+    setLocationData(prevState => ({
       ...prevState,
       details: prevState.details.filter(detail => detail.id !== detailId)
     }));
@@ -61,33 +61,33 @@ const useEdittingLocationData = () => {
 
   // Firestoreからデータを取得する関数
   const fetchLocationData = useCallback(async () => {
-    const docRef = doc(db, "locations", edittingLocationData.id.toString());
+    const docRef = doc(db, "locations", locationData.id.toString());
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setEdittingLocationData(docSnap.data() as Location);
+      setLocationData(docSnap.data() as LocationType);
     } else {
       console.log("No such document!");
     }
-  }, [edittingLocationData.id]);
+  }, [locationData.id]);
 
   useEffect(() => {
     // 初期データ取得
     const fetchLocationData = useCallback(async () => {
-      const docRef = doc(db, "locations", edittingLocationData.id.toString());
+      const docRef = doc(db, "locations", locationData.id.toString());
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
-        setEdittingLocationData(docSnap.data() as Location);
+        setLocationData(docSnap.data() as LocationType);
       } else {
         console.log("No such document!");
       }
-    }, [edittingLocationData.id]);
+    }, [locationData.id]);
 
     fetchLocationData();
   }, []);
 
-  return { edittingLocationData, updateLocation, updateDetail, addDetail, removeDetail };
+  return { locationData, fetchLocationData, updateLocation, updateDetail, addDetail, removeDetail };
 }
 
-export default useEdittingLocationData;
+export default useLocationData;

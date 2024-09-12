@@ -1,8 +1,8 @@
 // firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAqttwv_RSlW06Qsfi7lFurMfpu9Z-jc5A",

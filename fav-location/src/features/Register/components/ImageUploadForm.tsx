@@ -1,35 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@mui/material';
-import useEdittingLocationData from '../hooks/useEdittingLocationData';
+import useEdittingLocationData from '../hooks/useLocationData';
+import { getImage } from '../../../util/FirebaseRepository';
 
 type ImageUploadProps = {
   detailId: number;
 }
 
+// Todo: Contextで持っている画像データはFile型だが、string型の方がいいかもしれない
 const ImageUpload = (props: ImageUploadProps) => {
-  const { edittingLocationData, updateDetail } = useEdittingLocationData();
-  const thisDetail = edittingLocationData.details.find(detail => detail.id === props.detailId);
-  const image = thisDetail?.image;
+  const { locationData, updateDetail } = useEdittingLocationData();
+  const thisDetail = locationData.details.find(detail => detail.id === props.detailId);
+  const imagePath = thisDetail?.imagePath;
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   // プレビュー画像の表示
   useEffect(() => {
-    if (image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result as string);
-      };
-      reader.readAsDataURL(image);
-    } else {
-      setPreviewUrl(null);
+    async function fetchImage() {
+      if (imagePath) {
+        const image = await getImage(imagePath);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewUrl(reader.result as string);
+        };
+        reader.readAsDataURL(image);
+      } else {
+        setPreviewUrl(null);
+      }
     }
-  }, [image]);
+    fetchImage();
+  }, [imagePath]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       updateDetail({
         ...thisDetail!,
-        image: event.target.files[0]
+        imagePath: event.target.files[0].name
       });
     }
   };
@@ -49,7 +55,7 @@ const ImageUpload = (props: ImageUploadProps) => {
       {previewUrl && (
         <Box sx={{ mt: 2, textAlign: 'center' }}>
           <img src={previewUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '400px' }} />
-          <p>選択されたファイル: {image!.name}</p>
+          <p>選択されたファイル: {imagePath}</p>
         </Box>
       )}
     </Box>

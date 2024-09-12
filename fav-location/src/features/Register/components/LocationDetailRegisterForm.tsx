@@ -1,4 +1,4 @@
-import useEdittingLocationData from '../hooks/useEdittingLocationData';
+import useEdittingLocationData from '../hooks/useLocationData';
 import ImageUploadForm from './ImageUploadForm';
 import { TextareaAutosize } from '@mui/base';
 
@@ -7,12 +7,12 @@ type LocationDetailRegisterFormProps = {
 }
 
 const LocationDetailRegisterForm = (props: LocationDetailRegisterFormProps) => {
-  const { edittingLocationData, updateDetail } = useEdittingLocationData();
+  const { locationData, updateDetail } = useEdittingLocationData();
 
   // テキストエリアの変更
   const onTextAriaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateDetail({
-      ...edittingLocationData.details.find(detail => detail.id === props.detailId)!,
+      ...locationData.details.find(detail => detail.id === props.detailId)!,
       description: event.target.value
     });
   }

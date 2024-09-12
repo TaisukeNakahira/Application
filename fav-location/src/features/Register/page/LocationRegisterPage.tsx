@@ -1,16 +1,13 @@
 import { Input } from '@mui/material';
 import { useState } from 'react';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../../app/firebaseSettings';
 import { Button, CircularProgress } from '@mui/material';
 import LocationDetailRegister from '../components/LocationDetailRegister';
-import { EdittingLocationDataProvider } from '../components/EdittingLocationDataProvider';
-import useEdittingLocationData from '../hooks/useEdittingLocationData';
+import { LocationDataProvider } from '../components/EdittingLocationDataProvider';
 
 const LocationRegisterPage = () => {
   const [uploading, setUploading] = useState(false);
-  const { edittingLocationData } = useEdittingLocationData();
 
+  // Todo: 編集中のデータを確定させる処理
   async function handleUpload() {
     setUploading(true);
     try {
@@ -32,12 +29,14 @@ const LocationRegisterPage = () => {
         <label>名称</label>
         <Input />
       </div>
-      <LocationDetailRegister />
-      <div>
-        <Button variant="contained" color="primary" onClick={handleUpload} disabled={uploading}>
-          {uploading ? <CircularProgress size={24} /> : '登録'}
-        </Button>
-      </div>
+      <LocationDataProvider>
+        <LocationDetailRegister />
+        <div>
+          <Button variant="contained" color="primary" onClick={handleUpload} disabled={uploading}>
+            {uploading ? <CircularProgress size={24} /> : '登録'}
+          </Button>
+        </div>
+      </LocationDataProvider>
     </>
   )
 };

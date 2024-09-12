@@ -1,12 +1,13 @@
 import { createContext, useContext, ReactNode } from "react";
-import useEdittingLocationData, { LocationDetail, Location } from "../hooks/useEdittingLocationData";
+import useLocationData, { LocationDetailType, LocationType } from "../hooks/useLocationData";
 
 // Contextの型定義
 type LocationContextType = {
-  edittingLocationData: Location;
+  locationData: LocationType;
+  fetchLocationData: () => void;
   updateLocation: (name: string) => void;
-  updateDetail: (updatedDetail: LocationDetail) => void;
-  addDetail: (newDetail: LocationDetail) => void;
+  updateDetail: (updatedDetail: LocationDetailType) => void;
+  addDetail: (newDetail: LocationDetailType) => void;
   removeDetail: (detailId: number) => void;
 };
 
@@ -14,19 +15,21 @@ type LocationContextType = {
 const LocationContext = createContext<LocationContextType | undefined>(undefined);
 
 // Providerコンポーネントの作成
-export const EdittingLocationDataProvider = ({ children }: { children: ReactNode }) => {
+export const LocationDataProvider = ({ children }: { children: ReactNode }) => {
   const {
-    edittingLocationData,
+    locationData,
+    fetchLocationData,
     updateLocation,
     updateDetail,
     addDetail,
     removeDetail
-  } = useEdittingLocationData();
+  } = useLocationData();
 
   return (
     <LocationContext.Provider
       value={{
-        edittingLocationData,
+        locationData,
+        fetchLocationData,
         updateLocation,
         updateDetail,
         addDetail,

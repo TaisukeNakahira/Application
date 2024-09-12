@@ -3,19 +3,20 @@ import LocationDetailRegisterForm from './LocationDetailRegisterForm';
 import { useLocationContext } from './EdittingLocationDataProvider';
 import { TabPanel } from '@mui/lab';
 
+// Todo: ユーザーがタブを追加できるようにする（タブ追加時、場所詳細データも追加）
 const LocationDetailRegister = () => {
-  const { edittingLocationData } = useLocationContext();
+  const { locationData } = useLocationContext();
 
   return (
     <>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs aria-label="basic tabs example">
-          {edittingLocationData.details.map((detail, index) => (
+          {locationData.details.map((detail, index) => (
             <Tab label={detail.title} value={index.toString()} />
           ))}
         </Tabs>
       </Box>
-      {edittingLocationData.details.map((detail, index) => (
+      {locationData.details.map((detail, index) => (
         <TabPanel value={index.toString()}>
           <LocationDetailRegisterForm detailId={detail.id} />
         </TabPanel>
