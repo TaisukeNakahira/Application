@@ -1,12 +1,17 @@
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
-import { LocationType } from "../features/Register/hooks/useLocationData";
 import { db, storage } from "../app/firebaseSettings";
 import { getBytes, ref } from "firebase/storage";
+import { LocationType } from "./LocationType";
 
 // すべてのデータ取得
 export async function getAllLocations(): Promise<LocationType[]> {
   const querySnapshot = await getDocs(collection(db, 'location'));
-  const locations = querySnapshot.docs.map(doc => doc.data() as LocationType);
+  const locations = querySnapshot.docs.map(doc => {
+    return {
+      id: doc.id,
+      ...doc.data()
+    } as LocationType;
+  });
   return locations;
 }
 
