@@ -3,25 +3,28 @@ import styled from "@emotion/styled";
 import { getDownloadURL, ref } from 'firebase/storage';
 import { storage } from '../../../app/firebaseSettings';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StyledCard = styled(Card)`
-  maxWidth: 1000;
+  height: 400px;
+  width: 300px;
   cursor: pointer;
 `;
 
 const StyledCardMedia = styled(CardMedia)`
-  height: 500;
   padding-top: 56.25%;
 `;
 
 type CardComponentProps = {
   imagePath: string;
   title: string;
+  id: string;
 }
 
 // Todo: Storageに画像を保存、Databaseに画像のパスを保存する
 const CardComponent = (props: CardComponentProps) => {
   const [img, setImage] = useState<string>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getImage() {
@@ -39,13 +42,17 @@ const CardComponent = (props: CardComponentProps) => {
     getImage();
   }, [props]);
 
+  function handleClick() {
+    navigate(`/detail/${props.id}`);
+  }
+
   if (!img) {
     return <div>loading...</div>;
   }
   
   return (
     <>
-      <StyledCard onClick={() => {}}>
+      <StyledCard onClick={handleClick}>
         <StyledCardMedia image={img}/>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p"> {props.title}</Typography>

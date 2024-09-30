@@ -5,7 +5,7 @@ export type LocationType = {
 };
 
 export type LocationDetailType = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   imagePath: string;

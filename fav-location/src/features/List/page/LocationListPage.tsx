@@ -30,7 +30,7 @@ const LocationListPage = () => {
         {locations ? locations.map(location => (
           <div key={location.id}>
             <Grid size={4}>
-              <CardComponent imagePath={location.details[0].imagePath} title={location.title}></CardComponent>
+              <CardComponent imagePath={location.details[0].imagePath} title={location.title} id={location.id}></CardComponent>
             </Grid>
           </div>
         )) : null}
