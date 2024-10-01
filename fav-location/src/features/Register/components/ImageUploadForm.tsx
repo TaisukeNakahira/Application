@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Box } from '@mui/material';
 import useEdittingLocationData from '../hooks/useLocationData';
-import { getImage } from '../../../util/FirebaseRepository';
+import { getImageUrl } from '../../../util/FirebaseRepository';
 
 type ImageUploadProps = {
   detailId: number;
@@ -18,12 +18,14 @@ const ImageUpload = (props: ImageUploadProps) => {
   useEffect(() => {
     async function fetchImage() {
       if (imagePath) {
-        const image = await getImage(imagePath);
+        const imageUrl = await getImageUrl(imagePath);
+        const response = await fetch(imageUrl);
+        const imageBlob = await response.blob();
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreviewUrl(reader.result as string);
         };
-        reader.readAsDataURL(image);
+        reader.readAsDataURL(imageBlob);
       } else {
         setPreviewUrl(null);
       }

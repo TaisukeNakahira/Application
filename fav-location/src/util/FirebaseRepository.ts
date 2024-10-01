@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { db, storage } from "../app/firebaseSettings";
-import { getBytes, ref } from "firebase/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 import { LocationType } from "./LocationType";
 
 // すべてのデータ取得
@@ -16,8 +16,8 @@ export async function getAllLocations(): Promise<LocationType[]> {
 }
 
 // 単一データ取得
-export async function getLocation(id: number) {
-  const docRef = doc(db, 'location', id.toString());
+export async function getLocation(id: string) {
+  const docRef = doc(db, 'location', id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -56,12 +56,12 @@ export async function deleteLocation(id: number) {
 }
 
 // 画像を取得
-export async function getImage(imagePath: string) {
-  const imageRef = ref(storage, imagePath);
-  const imageBytes = await getBytes(imageRef);
-
-  // ByteArrayをBlobに変換
-  const blob = new Blob([imageBytes], { type: 'image/png' }); // または適切なMIMEタイプを指定
-
-  return blob;
+export async function getImageUrl(imagePath: string): Promise<string> {
+  var gsReference = ref(storage, imagePath);
+  try {
+    const url = await getDownloadURL(gsReference);
+    return url;
+  } catch (err) {
+    throw new Error("画像を取得できませんでした。");
+  }
 }

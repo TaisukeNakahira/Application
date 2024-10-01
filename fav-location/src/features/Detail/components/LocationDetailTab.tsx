@@ -1,16 +1,17 @@
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { TabContext, TabList } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 import { useState } from "react";
 import { LocationType } from "../../../util/LocationType";
+import LocationDetailTabPanel from "./LocationDetailTabPanel";
 
 type LocationDetailTabProps = {
   location: LocationType;
 }
 
 const LocationDetailTab = (props: LocationDetailTabProps) => {
-  const [value, setValue] = useState<number>(0);
+  const [value, setValue] = useState<string>('0');
 
-  function handleChange(_: React.SyntheticEvent, newValue: number) {
+  function handleChange(_: React.SyntheticEvent, newValue: string) {
     setValue(newValue);
   }
 
@@ -20,17 +21,16 @@ const LocationDetailTab = (props: LocationDetailTabProps) => {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} TabIndicatorProps={{ style: { backgroundColor: "green" } }}>
-              {props.location.details.map((location, index) => (
-                <Tab key={index} label={location.title} value={index} sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
+              {props.location.details.map((detail, index) => (
+                <Tab key={index} label={detail.title} value={index.toString()} sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
               ))}
-              {/* <Tab label="Item One" value="1" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
-              <Tab label="Item Two" value="2" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />*/}
             </TabList>
           </Box>
-         
-          <TabPanel value="1">Item One</TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
+          
+          {props.location.details.map((detail, index) => (
+            <LocationDetailTabPanel index={index} detail={detail} />
+          ))}
+
         </TabContext>
     </Box>
     </div>
