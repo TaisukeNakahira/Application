@@ -24,8 +24,7 @@ const LocationDetailTab = (props: LocationDetailTabProps) => {
                 <Tab key={index} label={location.title} value={index} sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
               ))}
               {/* <Tab label="Item One" value="1" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
-              <Tab label="Item Two" value="2" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />
-              <Tab label="Item Three" value="3" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} /> */}
+              <Tab label="Item Two" value="2" sx={{ color: 'green', '&.Mui-selected': { color: 'green', }, }} />*/}
             </TabList>
           </Box>
          
